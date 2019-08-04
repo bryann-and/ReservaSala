@@ -12,47 +12,54 @@ namespace ReservaSala.Controllers
 {
     public class SalasController : Controller
     {
-        // GET: Salas
         public ActionResult Index()
         {
-            ListaSalaAPI lsita = new ListaSalaAPI();
+            SalaAPI lsita = new SalaAPI();
 
             return View("ListaSalas", lsita.Get());
         }
 
-        // GET: Salas/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Salas/Create
+        [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            return View("CadastroSala");
         }
 
-        // POST: Salas/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Sala collection)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (!ModelState.IsValid)
+                {
+                    return View("CadastroSala");
+                }
 
-                return RedirectToAction(nameof(Index));
+                SalaAPI API = new SalaAPI();
+                MensagemRetorno retorno = API.Post(collection);
+                TempData["Mensagem"] = retorno.ToString();
+
+                if (retorno.Tipo == "success")
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return View("CadastroSala");
+                }
             }
             catch
             {
-                return View();
-            }
-        }
+                TempData["Mensagem"] = new MensagemRetorno
+                {
+                    Titulo = "Erro!",
+                    Mensagem = "Instabilidade no sistem, tente novamente mais tarde!",
+                    Tipo = "error"
+                }.ToString();
 
-        // GET: Salas/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
+                return View("CadastroSala");
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

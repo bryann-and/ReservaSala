@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ReservaSala</title>
 
+    <link href="~/lib/sweetalert/sweetalert2.min.css" rel="stylesheet" />
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -46,6 +47,7 @@
         </footer>
     </div>
 
+    <script src="~/lib/sweetalert/sweetalert2.all.min.js"></script>
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -69,4 +71,17 @@
 
     @RenderSection("Scripts", required: false)
 </body>
+@{
+    if (TempData.ContainsKey("Mensagem"))
+    {
+        MensagemRetorno erro = Newtonsoft.Json.JsonConvert.DeserializeObject<MensagemRetorno>(TempData["Mensagem"].ToString());
+
+        @Html.Raw("<script>Swal.fire({ " +
+        "title: '" + erro.Titulo + "'," +
+        "text: '" + erro.Mensagem + "'," +
+        "type: '" + erro.Tipo + "'," +
+        "allowOutsideClick: false," +
+        "allowEscapeKey: false })</script>")
+    }
+}
 </html>
