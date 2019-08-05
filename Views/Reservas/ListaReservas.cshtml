@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ReservaSala.Models.Reserva>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Sala.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataInicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataTermino)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Reserva item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sala.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataInicio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataTermino)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

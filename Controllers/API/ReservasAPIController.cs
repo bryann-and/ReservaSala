@@ -8,38 +8,37 @@ using ReservaSala.Models;
 
 namespace ReservaSala.Controllers.API
 {
-    [Route("api/Salas")]
+    [Route("api/Reservas")]
     [ApiController]
-    public class SalaAPI : ControllerBase
+    public class ReservasAPIController : ControllerBase
     {
         [HttpGet]
-        public List<Sala> Get()
+        public List<Reserva> Get()
         {
-            return new List<Sala>
+            return new List<Reserva>
             {
-                new Sala() { Nome = "Sala 01" },
-                new Sala() { Nome = "Sala 02" }
+                new Reserva() { Descricao = "Reunião Tals", DataInicio = "31/05/2019 21:00", DataTermino = "31/05/2019 21:30", Sala = new Sala { Nome = "Sala 01" } },
             };
         }
 
         [HttpGet("{id:int}")]
-        public Sala Get(int id)
+        public Reserva Get(int id)
         {
             if (id <= 0)
             {
-                return new Sala();
+                return new Reserva();
             }
 
-            return new Sala
+            return new Reserva
             {
                 Id = id,
-                Nome = "Sala 01"
+                Descricao = "Sala 01"
             };
         }
 
         [HttpPost]
         [Route("api/CadastroSala")]
-        public MensagemRetorno Post([FromBody] Sala dados)
+        public MensagemRetorno Post([FromBody] Reserva dados)
         {
             try
             {
