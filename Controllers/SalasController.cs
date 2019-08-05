@@ -54,7 +54,7 @@ namespace ReservaSala.Controllers
                 TempData["Mensagem"] = new MensagemRetorno
                 {
                     Titulo = "Erro!",
-                    Mensagem = "Instabilidade no sistem, tente novamente mais tarde!",
+                    Mensagem = "Instabilidade no sistema, tente novamente mais tarde!",
                     Tipo = "error"
                 }.ToString();
 

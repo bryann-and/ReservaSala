@@ -17,8 +17,8 @@ namespace ReservaSala.Controllers.API
         {
             return new List<Sala>
             {
-                new Sala() { Nome = "Sala 01" },
-                new Sala() { Nome = "Sala 02" }
+                new Sala() { Nome = "Sala 01", Id = 1 },
+                new Sala() { Nome = "Sala 02", Id = 2 }
             };
         }
 
@@ -43,6 +43,11 @@ namespace ReservaSala.Controllers.API
         {
             try
             {
+                if (TryValidateModel(dados))
+                {
+                    throw new DadosInvalidosException();
+                }
+
                 return new MensagemRetorno
                 {
                     Titulo = "Sucesso!",
@@ -50,12 +55,21 @@ namespace ReservaSala.Controllers.API
                     Tipo = "success"
                 };
             }
+            catch (DadosInvalidosException)
+            {
+                return new MensagemRetorno
+                {
+                    Titulo = "Erro!",
+                    Mensagem = "Existem dados inválidos, revise-os e tente novamente!",
+                    Tipo = "error"
+                };
+            }
             catch (Exception)
             {
                 return new MensagemRetorno
                 {
                     Titulo = "Erro!",
-                    Mensagem = "Instabilidade no sistem, tente novamente mais tarde!",
+                    Mensagem = "Instabilidade no sistema, tente novamente mais tarde!",
                     Tipo = "error"
                 };
             }

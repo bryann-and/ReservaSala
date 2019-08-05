@@ -9,29 +9,19 @@ namespace ReservaSala.Models
         public int Id { get; set; }
 
         [Display(Name = "Descrição")]
+        [Required(ErrorMessage = "Campo obrigatório!")]
+        [MinLength(5, ErrorMessage = "Escolha uma descrição com no mínimo 5 caracteres")]
+        [MaxLength(100, ErrorMessage = "Tamanho excedido, máximo de 100 caracteres!")]
         public string Descricao { get; set; }
 
         [Display(Name = "Data de inicio")]
-        public string DataInicio
-        {
-            get => dataInicio.ToString("dd/MM/yyyy HH:mm");
-            set
-            {
-                dataInicio = DateTime.ParseExact(value, "dd/MM/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture);
-            }
-        }
+        [Required(ErrorMessage = "Campo obrigatório!")]
+        [DataBrasileira(ErrorMessage = "Data inválida!")]
+        public string DataInicio { get; set; }
 
         [Display(Name = "Data de término")]
-        public string DataTermino
-        {
-            get => dataTermino.ToString("dd/MM/yyyy HH:mm");
-            set
-            {
-                dataTermino = DateTime.ParseExact(value, "dd/MM/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture);
-            }
-        }
-
-        private DateTime dataInicio { get; set; }
-        private DateTime dataTermino { get; set; }
+        [Required(ErrorMessage = "Campo obrigatório!")]
+        [DataBrasileira(ErrorMessage = "Data inválida!")]
+        public string DataTermino { get; set; }
     }
 }

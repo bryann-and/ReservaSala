@@ -9,6 +9,7 @@ namespace ReservaSala.Models
 {
     public class Sala
     {
+        [Required(ErrorMessage = "Escolha uma Sala!")]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Este campo é obrigatório!")]

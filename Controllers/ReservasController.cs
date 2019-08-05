@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReservaSala.Controllers.API;
+using ReservaSala.Models;
 
 namespace ReservaSala.Controllers
 {
@@ -12,7 +13,7 @@ namespace ReservaSala.Controllers
     {
         public ActionResult Index()
         {
-            ReservasAPIController reservas = new ReservasAPIController();
+            ReservasAPI reservas = new ReservasAPI();
 
             return View("ListaReservas", reservas.Get());
         }
@@ -21,23 +22,44 @@ namespace ReservaSala.Controllers
         // GET: Reservas/Create
         public ActionResult Create()
         {
-            return View();
+            return View("CadastroReserva");
         }
 
         // POST: Reservas/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Reserva collection)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (!ModelState.IsValid)
+                {
+                    return View("CadastroReserva");
+                }
 
-                return RedirectToAction(nameof(Index));
+                ReservasAPI API = new ReservasAPI();
+                MensagemRetorno retorno = API.Post(collection);
+                TempData["Mensagem"] = retorno.ToString();
+
+                if (retorno.Tipo == "success")
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return View("CadastroReserva");
+                }
             }
             catch
             {
-                return View();
+                TempData["Mensagem"] = new MensagemRetorno
+                {
+                    Titulo = "Erro!",
+                    Mensagem = "Instabilidade no sistema, tente novamente mais tarde!",
+                    Tipo = "error"
+                }.ToString();
+
+                return View("CadastroReserva");
             }
         }
     }

@@ -10,7 +10,7 @@ namespace ReservaSala.Controllers.API
 {
     [Route("api/Reservas")]
     [ApiController]
-    public class ReservasAPIController : ControllerBase
+    public class ReservasAPI : ControllerBase
     {
         [HttpGet]
         public List<Reserva> Get()
@@ -54,7 +54,7 @@ namespace ReservaSala.Controllers.API
                 return new MensagemRetorno
                 {
                     Titulo = "Erro!",
-                    Mensagem = "Instabilidade no sistem, tente novamente mais tarde!",
+                    Mensagem = "Instabilidade no sistema, tente novamente mais tarde!",
                     Tipo = "error"
                 };
             }
