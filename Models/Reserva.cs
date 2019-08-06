@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ReservaSala.Models
@@ -23,5 +24,15 @@ namespace ReservaSala.Models
         [Required(ErrorMessage = "Campo obrigatório!")]
         [DataBrasileira(ErrorMessage = "Data inválida!")]
         public string DataTermino { get; set; }
+
+        public void Validar()
+        {
+            List<ValidationResult> erros = new List<ValidationResult>();
+
+            if (!Validator.TryValidateObject(this, new ValidationContext(this), erros, true))
+            {
+                throw new DadosInvalidosException(erros);
+            }
+        }
     }
 }

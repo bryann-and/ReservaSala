@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ReservaSala.Bibliotecas;
 using ReservaSala.Models;
 
 namespace ReservaSala.Controllers.API
@@ -15,38 +13,29 @@ namespace ReservaSala.Controllers.API
         [HttpGet]
         public List<Sala> Get()
         {
-            return new List<Sala>
-            {
-                new Sala() { Nome = "Sala 01", Id = 1 },
-                new Sala() { Nome = "Sala 02", Id = 2 }
-            };
+            return SqlServer.ListaSalas();
         }
 
         [HttpGet("{id:int}")]
         public Sala Get(int id)
         {
-            if (id <= 0)
+            if (id < 1)
             {
                 return new Sala();
             }
 
-            return new Sala
-            {
-                Id = id,
-                Nome = "Sala 01"
-            };
+            return SqlServer.ListaSalas(id);
         }
 
         [HttpPost]
-        [Route("api/CadastroSala")]
-        public MensagemRetorno Post([FromBody] Sala dados)
+        [Route("CadastroSala")]
+        public MensagemRetorno Post(Sala dados)
         {
             try
             {
-                if (TryValidateModel(dados))
-                {
-                    throw new DadosInvalidosException();
-                }
+                // valida o model, caso não esteja de acordo, gera uma DadosInvalidosException
+                dados.Validar();
+                SqlServer.Inserir(dados);
 
                 return new MensagemRetorno
                 {
@@ -55,12 +44,12 @@ namespace ReservaSala.Controllers.API
                     Tipo = "success"
                 };
             }
-            catch (DadosInvalidosException)
+            catch (DadosInvalidosException e)
             {
                 return new MensagemRetorno
                 {
-                    Titulo = "Erro!",
-                    Mensagem = "Existem dados inválidos, revise-os e tente novamente!",
+                    Titulo = "Dados Invalidos!",
+                    Mensagem = e.Erro,
                     Tipo = "error"
                 };
             }

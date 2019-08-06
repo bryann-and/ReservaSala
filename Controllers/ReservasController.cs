@@ -32,6 +32,9 @@ namespace ReservaSala.Controllers
         {
             try
             {
+                // remove a verificao do nome da sala, que não é usado aqui
+                ModelState.Remove("Sala.Nome");
+
                 if (!ModelState.IsValid)
                 {
                     return View("CadastroReserva");

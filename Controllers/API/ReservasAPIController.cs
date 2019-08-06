@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ReservaSala.Bibliotecas;
 using ReservaSala.Models;
 
 namespace ReservaSala.Controllers.API
@@ -37,16 +38,48 @@ namespace ReservaSala.Controllers.API
         }
 
         [HttpPost]
-        [Route("api/CadastroSala")]
+        [Route("CadastroReserva")]
         public MensagemRetorno Post([FromBody] Reserva dados)
         {
             try
             {
+                dados.Validar();                
+                if (dados.Sala.Id < 1)
+                {
+                    return new MensagemRetorno
+                    {
+                        Titulo = "Erro!",
+                        Mensagem = "É preciso o ID da sala",
+                        Tipo = "error"
+                    };
+                }
+
+                if (!SqlServer.PodeReservar(dados))
+                {
+                    return new MensagemRetorno
+                    {
+                        Titulo = "Erro!",
+                        Mensagem = "Conflito de horários, tente outro.",
+                        Tipo = "error"
+                    };
+                }
+
+                SqlServer.Inserir(dados);
+
                 return new MensagemRetorno
                 {
                     Titulo = "Sucesso!",
-                    Mensagem = "Sala cadastrada com sucesso!",
+                    Mensagem = "Reserva feita com sucesso!",
                     Tipo = "success"
+                };
+            }
+            catch (DadosInvalidosException e)
+            {
+                return new MensagemRetorno
+                {
+                    Titulo = "Dados Invalidos!",
+                    Mensagem = e.Erro,
+                    Tipo = "error"
                 };
             }
             catch (Exception)

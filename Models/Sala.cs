@@ -1,4 +1,5 @@
-﻿using ReservaSala.Controllers.API;
+﻿using ReservaSala.Bibliotecas;
+using ReservaSala.Controllers.API;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -20,6 +21,7 @@ namespace ReservaSala.Models
 
 
         public Sala() { }
+
         /// <summary>
         /// Carrega o objeto com as informações da sala com o Id fornecido
         /// </summary>
@@ -31,6 +33,16 @@ namespace ReservaSala.Models
 
             Id = dados.Id;
             Nome = dados.Nome;
+        }
+
+        public void Validar()
+        {
+            List<ValidationResult> erros = new List<ValidationResult>();
+
+            if (!Validator.TryValidateObject(this, new ValidationContext(this), erros, true))
+            {
+                throw new DadosInvalidosException(erros);
+            }
         }
     }
 }
