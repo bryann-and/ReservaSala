@@ -9,6 +9,10 @@ namespace System
 
         public DadosInvalidosException() { }
 
+        /// <summary>
+        /// Inicializa o objeto com uma mensagem de erro de todos os valores invalidos
+        /// </summary>
+        /// <param name="erros">uma lista dos erros</param>
         public DadosInvalidosException(List<ValidationResult> erros)
         {
             Erro = "";

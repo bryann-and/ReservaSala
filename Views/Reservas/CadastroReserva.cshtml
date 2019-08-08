@@ -39,12 +39,14 @@
     <a asp-action="Index">Back to List</a>
 </div>
 <script>
+    // buscando todas as salas existentes
     document.addEventListener("DOMContentLoaded", function () {
         $.ajax({
             type: 'get',
             url: '@Url.Action("", "api/Salas")'
         }).done(function (dados)
         {
+            // preenchendo o select com as salas disponiveis
             for (let i = 0; i < dados.length; i++)
             {
                 document.getElementById('select-sala').innerHTML += "<option value=" + dados[i].id + ">" + dados[i].nome + "</option>";

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ReservaSala.Controllers.API;
 using ReservaSala.Models;
 
@@ -19,20 +14,18 @@ namespace ReservaSala.Controllers
         }
 
 
-        // GET: Reservas/Create
         public ActionResult Create()
         {
             return View("CadastroReserva");
         }
 
-        // POST: Reservas/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Reserva collection)
         {
             try
             {
-                // remove a verificao do nome da sala, que não é usado aqui
+                // remove a verifição do nome da sala, que não é usado aqui
                 ModelState.Remove("Sala.Nome");
 
                 if (!ModelState.IsValid)

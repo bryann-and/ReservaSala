@@ -6,6 +6,9 @@ namespace ReservaSala.Models
 {
     public class Reserva
     {
+        /// <summary>
+        /// Sala da reserva
+        /// </summary>
         public Sala Sala { get; set; }
         public int Id { get; set; }
 
@@ -25,6 +28,9 @@ namespace ReservaSala.Models
         [DataBrasileira(ErrorMessage = "Data inválida!")]
         public string DataTermino { get; set; }
 
+        /// <summary>
+        /// Usado para validação manual, como verificação na API
+        /// </summary>
         public void Validar()
         {
             List<ValidationResult> erros = new List<ValidationResult>();

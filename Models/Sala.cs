@@ -3,8 +3,6 @@ using ReservaSala.Controllers.API;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ReservaSala.Models
 {
@@ -28,13 +26,15 @@ namespace ReservaSala.Models
         /// <param name="id_sala">ID da sala</param>
         public Sala(int id_sala)
         {
-            SalaAPI api = new SalaAPI();
-            Sala dados = api.Get(id_sala);
+            Sala dados = SqlServer.ListaSalas(id_sala);
 
             Id = dados.Id;
             Nome = dados.Nome;
         }
 
+        /// <summary>
+        /// Usado para validação manual, como verificação na API
+        /// </summary>
         public void Validar()
         {
             List<ValidationResult> erros = new List<ValidationResult>();

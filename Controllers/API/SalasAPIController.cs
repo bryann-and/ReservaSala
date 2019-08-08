@@ -7,7 +7,8 @@ using ReservaSala.Models;
 namespace ReservaSala.Controllers.API
 {
     [Route("api/Salas")]
-    [ApiController]
+    //[ApiController]
+    //removido o DataAnnotation ApiController pq com ele o model é verificado automaticamente, mas isso faz com que a mensagem de resposta não tenha um padrão
     public class SalaAPI : ControllerBase
     {
         [HttpGet]
@@ -29,12 +30,13 @@ namespace ReservaSala.Controllers.API
 
         [HttpPost]
         [Route("CadastroSala")]
-        public MensagemRetorno Post(Sala dados)
+        public MensagemRetorno Post([FromBody] Sala dados)
         {
             try
             {
                 // valida o model, caso não esteja de acordo, gera uma DadosInvalidosException
                 dados.Validar();
+                // apos a validação, insere os dados no banco
                 SqlServer.Inserir(dados);
 
                 return new MensagemRetorno
