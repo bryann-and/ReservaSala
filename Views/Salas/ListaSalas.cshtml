@@ -1,12 +1,19 @@
 ﻿@model IEnumerable<ReservaSala.Models.Sala>
 
-<table class="table">
+<div class="pb-2 mt-4 mb-4 border-bottom">
+    <a href="@Url.Action("Create", "Salas")" class="btn btn-primary float-right">
+        Adicionar Sala
+    </a>
+
+    <h3>Salas</h3>
+</div>
+
+<table class="table table-hover">
     <thead>
         <tr>
-            <th>
+            <th sc>
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +28,6 @@
     </tbody>
 </table>
 
-<a href="@Url.Action("Create", "Salas")" class="btn btn-primary">
-    Adicionar Sala
-</a>
+<script>
+    document.getElementById('menu-sala').classList.add('active');
+</script>

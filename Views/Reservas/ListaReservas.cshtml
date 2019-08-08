@@ -1,6 +1,14 @@
 ﻿@model IEnumerable<ReservaSala.Models.Reserva>
 
-<table class="table">
+<div class="pb-2 mt-4 mb-4 border-bottom">
+    <a href="@Url.Action("Create", "Reservas")" class="btn btn-primary float-right">
+        Fazer Reserva
+    </a>
+
+    <h3>Reservas</h3>
+</div>
+
+<table class="table table-hover">
     <thead>
         <tr>
             <th>
@@ -38,7 +46,6 @@
     </tbody>
 </table>
 
-
-<a href="@Url.Action("Create", "Reservas")" class="btn btn-primary">
-    Fazer Reserva
-</a>
+<script>
+    document.getElementById('menu-reserva').classList.add('active');
+</script>

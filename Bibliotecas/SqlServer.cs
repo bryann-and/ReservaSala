@@ -16,7 +16,7 @@ namespace ReservaSala.Bibliotecas
         /// </summary>
         private static string StringConexao
         {
-            get => @"Data Source=DESKTOP-UNN4F31\SQLSERVER;Initial Catalog=ReservaSala;Integrated Security=True";
+            get => @"Data Source=reservasala.cn8rblaghphz.sa-east-1.rds.amazonaws.com;Initial Catalog=ReservaSalaBD;User ID=chico;Password=biliscos";
         }
 
         /// <summary>

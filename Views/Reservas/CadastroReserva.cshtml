@@ -1,9 +1,16 @@
 ﻿@model ReservaSala.Models.Reserva
 
-<h4>Fazer Reserva</h4>
+<div class="pb-2 mt-4 mb-4 border-bottom">
+    <a href="@Url.Action("Index", "Reservas")" class="btn btn-primary float-right">
+        Voltar
+    </a>
+
+    <h3>Fazer Reserva</h3>
+</div>
+
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -28,16 +35,14 @@
                 <input asp-for="DataTermino" class="form-control data-hora" />
                 <span asp-validation-for="DataTermino" class="text-danger"></span>
             </div>
+            <hr />
             <div class="form-group">
-                <button class="btn btn-default">Fazer Reserva</button>
+                <button class="btn btn-primary">Fazer Reserva</button>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 <script>
     // buscando todas as salas existentes
     document.addEventListener("DOMContentLoaded", function () {
@@ -64,5 +69,7 @@
 
         $('.data-hora').mask('00/00/0000 00:00');
     });
+
+    document.getElementById('menu-reserva').classList.add('active');
 </script>
 
