@@ -16,7 +16,7 @@ namespace ReservaSala.Bibliotecas
         /// </summary>
         private static string StringConexao
         {
-            get => @"Data Source=reservasala.cn8rblaghphz.sa-east-1.rds.amazonaws.com;Initial Catalog=ReservaSalaBD;User ID=chico;Password=biliscos";
+            get => "Sua string de conexão";
         }
 
         /// <summary>
